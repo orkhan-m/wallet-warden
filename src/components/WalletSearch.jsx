@@ -65,11 +65,19 @@ const WalletSearch = ({ onSearch, loading }) => {
           </button>
           <button
             onClick={() =>
-              setAddress("0x742d35Cc6634C0532925a3b8D60D5583CD1C9543")
+              setAddress("0xBE0eB53F46cd790Cd13851d5EFf43D12404d33E8")
             }
             className="example-btn"
           >
-            Sample Wallet
+            Binance
+          </button>
+          <button
+            onClick={() =>
+              setAddress("0x40B38765696e3d5d8d9d834D8AaD4bB6e418E489")
+            }
+            className="example-btn"
+          >
+            Robinhood
           </button>
         </div>
       </div>

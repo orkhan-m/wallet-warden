@@ -13,7 +13,12 @@ const VERIFIED_CONTRACTS = new Set([
 ]);
 
 export class ReputationAnalyzer {
-  static calculateReputation(walletData, transactions, tokens) {
+  static calculateReputation(
+    walletData,
+    transactions,
+    tokens,
+    enhancedData = {}
+  ) {
     let score = 50; // Base score
     const metrics = {
       totalVolume: 0,
@@ -24,6 +29,12 @@ export class ReputationAnalyzer {
       averageTransactionValue: 0,
       diversityScore: 0,
       frequencyScore: 0,
+      // Enhanced metrics using additional API data
+      internalTxCount: 0,
+      tokenTransferCount: 0,
+      contractInteractionDepth: 0,
+      balanceStability: 0,
+      verifiedContractRatio: 0,
     };
 
     // Validate input data
@@ -154,6 +165,97 @@ export class ReputationAnalyzer {
           walletData.coin_balance,
           balanceError
         );
+      }
+    }
+
+    // Enhanced analysis with internal transactions
+    if (enhancedData.internalTransactions?.items) {
+      metrics.internalTxCount = enhancedData.internalTransactions.items.length;
+
+      // Analyze internal transaction patterns
+      enhancedData.internalTransactions.items.forEach((tx) => {
+        if (tx.to?.is_contract) {
+          metrics.contractInteractionDepth++;
+          metrics.uniqueContracts.add(tx.to.hash);
+        }
+      });
+
+      // Bonus for contract interactions (shows sophistication)
+      score += Math.min(metrics.contractInteractionDepth * 2, 15);
+      if (metrics.contractInteractionDepth > 10) {
+        metrics.merits.push("Advanced DeFi user - High contract interaction");
+      }
+    }
+
+    // Enhanced analysis with token transfers
+    if (enhancedData.tokenTransfers?.items) {
+      metrics.tokenTransferCount = enhancedData.tokenTransfers.items.length;
+
+      // Analyze token transfer patterns for sophistication
+      const uniqueTokens = new Set();
+      enhancedData.tokenTransfers.items.forEach((transfer) => {
+        if (transfer.token?.address) {
+          uniqueTokens.add(transfer.token.address);
+        }
+      });
+
+      // Bonus for token diversity
+      const tokenDiversityBonus = Math.min(uniqueTokens.size * 1.5, 20);
+      score += tokenDiversityBonus;
+
+      if (uniqueTokens.size > 5) {
+        metrics.merits.push(
+          `Diverse token portfolio - ${uniqueTokens.size} different tokens`
+        );
+      }
+    }
+
+    // Enhanced analysis with balance history
+    if (enhancedData.balanceHistory?.items?.length > 1) {
+      const balanceChanges = enhancedData.balanceHistory.items;
+      let volatilityScore = 0;
+
+      for (let i = 1; i < balanceChanges.length; i++) {
+        const current = parseFloat(balanceChanges[i].value || 0);
+        const previous = parseFloat(balanceChanges[i - 1].value || 0);
+
+        if (previous > 0) {
+          const changeRatio = Math.abs((current - previous) / previous);
+          volatilityScore += changeRatio;
+        }
+      }
+
+      // Lower volatility = more stable = higher score
+      const avgVolatility = volatilityScore / (balanceChanges.length - 1);
+      if (avgVolatility < 0.1) {
+        metrics.balanceStability = 10;
+        score += 10;
+        metrics.merits.push("Stable balance management");
+      } else if (avgVolatility < 0.3) {
+        metrics.balanceStability = 5;
+        score += 5;
+      }
+    }
+
+    // Use counters data for additional insights
+    if (enhancedData.counters) {
+      const { transactions_count, gas_usage_count, validations_count } =
+        enhancedData.counters;
+
+      // Bonus for being a validator (if applicable)
+      if (validations_count > 0) {
+        score += 20;
+        metrics.merits.push("Network validator - Contributes to security");
+      }
+
+      // Analyze gas efficiency
+      if (transactions_count > 0 && gas_usage_count) {
+        const avgGasPerTx = gas_usage_count / transactions_count;
+        if (avgGasPerTx < 100000) {
+          // Efficient gas usage
+          score += 5;
+          metrics.merits.push("Efficient gas usage");
+        }
       }
     }
 

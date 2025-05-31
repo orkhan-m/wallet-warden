@@ -23,40 +23,34 @@ function App() {
     setCurrentAddress(address);
 
     try {
-      // Fetch all data concurrently
-      const [walletInfo, txData, tokenData] = await Promise.all([
-        BlockscoutAPI.getWalletInfo(address),
-        BlockscoutAPI.getTransactions(address, 1, 20).catch(() => ({
-          items: [],
-        })),
-        BlockscoutAPI.getTokenHoldings(address).catch(() => ({ items: [] })),
-      ]);
-
-      // Validate that we got some data
-      if (!walletInfo || walletInfo.error) {
-        throw new Error(
-          "Unable to fetch wallet information. The address might be invalid or not found."
-        );
-      }
-
-      console.log("Wallet data:", { walletInfo, txData, tokenData }); // Debug log
-
-      setWalletData(walletInfo);
-      setTransactions(txData);
-      setTokens(tokenData);
-
-      // Calculate reputation
-      const reputationData = ReputationAnalyzer.calculateReputation(
-        walletInfo,
-        txData,
-        tokenData
+      // Use comprehensive analysis for better API utilization
+      const analysisData = await BlockscoutAPI.getComprehensiveAnalysis(
+        address
       );
-      setReputation(reputationData);
+
+      // Set individual data states
+      setWalletData(analysisData.walletInfo);
+      setTransactions(analysisData.transactions);
+      setTokens(analysisData.tokens);
+
+      // Enhanced reputation analysis with all available data
+      const reputationScore = ReputationAnalyzer.calculateReputation(
+        analysisData.walletInfo,
+        analysisData.transactions,
+        analysisData.tokens,
+        {
+          internalTransactions: analysisData.internalTransactions,
+          tokenTransfers: analysisData.tokenTransfers,
+          balanceHistory: analysisData.balanceHistory,
+          counters: analysisData.counters,
+        }
+      );
+
+      setReputation(reputationScore);
     } catch (err) {
-      console.error("Error analyzing wallet:", err);
+      console.error("Analysis failed:", err);
       setError(
-        err.message ||
-          "Failed to analyze wallet. Please check the address and try again."
+        "Failed to analyze wallet. Please check the address and try again."
       );
     } finally {
       setLoading(false);
