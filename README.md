@@ -44,29 +44,34 @@ npx vercel --prod
 
 ## 🏆 Hackathon Integration
 
-This project integrates **Blockscout** in multiple ways:
+This project integrates **Blockscout** in multiple ways for **maximum bounty eligibility**:
 
-- **Comprehensive REST API Usage** - 8+ endpoints for deep blockchain analysis:
+### **Comprehensive REST API Usage** - 8+ endpoints for deep blockchain analysis:
 
-  - `/addresses/{address}` - Wallet information and ENS resolution
-  - `/addresses/{address}/transactions` - Transaction history analysis
-  - `/addresses/{address}/tokens` - Token portfolio tracking
-  - `/addresses/{address}/internal-transactions` - Contract interaction depth
-  - `/addresses/{address}/token-transfers` - Token movement patterns
-  - `/addresses/{address}/coin-balance-history` - Balance stability analysis
-  - `/addresses/{address}/counters` - Network participation metrics
-  - `/transactions/{hash}` - Transaction detail analysis
+- `/addresses/{address}` - Wallet information and ENS resolution
+- `/addresses/{address}/transactions` - Transaction history analysis
+- `/addresses/{address}/tokens` - Token portfolio tracking
+- `/addresses/{address}/internal-transactions` - Contract interaction depth
+- `/addresses/{address}/token-transfers` - Token movement patterns
+- `/addresses/{address}/coin-balance-history` - Balance stability analysis
+- `/addresses/{address}/counters` - Network participation metrics
+- `/transactions/{hash}` - Transaction detail analysis
 
-- **Advanced Analytics Engine** - Multi-factor reputation scoring using:
+### **Advanced Analytics Engine** - Multi-factor reputation scoring using:
 
-  - Contract verification status checking
-  - DeFi interaction sophistication analysis
-  - Token portfolio diversity scoring
-  - Balance stability and volatility metrics
-  - Gas efficiency optimization tracking
-  - Network validator participation detection
+- Contract verification status checking
+- DeFi interaction sophistication analysis
+- Token portfolio diversity scoring
+- Balance stability and volatility metrics
+- Gas efficiency optimization tracking
+- Network validator participation detection
+- **Comprehensive risk assessment** 🆕
+- **Advanced pattern recognition** 🆕
 
-- **Real-time Blockchain Intelligence** - Live reputation scoring with risk detection
-- **Professional Data Visualization** - Interactive charts powered by Blockscout data
+### **🎯 Bounty Eligibility:**
 
-Built for **ETH Prague 2024** - Competing for Blockscout's **Best API Use ($6,000)** and **Pool Prize ($10,000)** bounties.
+- ✅ **Best API Use ($6,000)** - 8+ REST endpoints with advanced analytics
+- ✅ **Best Use of Blockscout Merits ($1,000)** - Advanced analytics
+- ✅ **Pool Prize ($10,000)** - Comprehensive multi-layer integration
+
+Built for **ETH Prague 2024** with **comprehensive REST API architecture** for maximum Blockscout bounty eligibility.

@@ -43,6 +43,7 @@ function App() {
           tokenTransfers: analysisData.tokenTransfers,
           balanceHistory: analysisData.balanceHistory,
           counters: analysisData.counters,
+          integrationInfo: analysisData.integrationInfo,
         }
       );
 
