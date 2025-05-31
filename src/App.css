@@ -201,13 +201,16 @@ body {
   background: var(--light-gray);
 }
 
-/* Wallet Overview */
+/* Wallet Overview - Make slightly wider */
 .wallet-overview {
   background: white;
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-xl);
   margin-bottom: var(--spacing-lg);
   box-shadow: var(--shadow);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .overview-header {
@@ -360,17 +363,55 @@ body {
   font-size: 0.9rem;
 }
 
-/* Content Grid */
+/* Chart Section - Full width, similar to main component */
+.chart-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.chart-section .transaction-chart {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Bottom Content Grid - Two columns for Recent Transactions and Token Holdings */
+.bottom-content-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Two column layout for larger screens */
+@media (min-width: 768px) {
+  .bottom-content-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: var(--spacing-lg);
+  }
+}
+
+.transactions-column,
+.tokens-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Legacy content-grid - keeping for backward compatibility */
 .content-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-lg);
   margin-top: var(--spacing-lg);
 }
 
-@media (max-width: 1024px) {
+/* Two column layout for larger screens */
+@media (min-width: 1200px) {
   .content-grid {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
   }
 }
 

@@ -84,16 +84,19 @@ function App() {
               transactions={transactions}
             />
 
-            <div className="content-grid">
-              <div className="left-column">
+            <div className="chart-section">
+              <TransactionChart transactions={transactions} />
+            </div>
+
+            <div className="bottom-content-grid">
+              <div className="transactions-column">
                 <TransactionHistory
                   transactions={transactions}
                   address={currentAddress}
                 />
-                <TransactionChart transactions={transactions} />
               </div>
 
-              <div className="right-column">
+              <div className="tokens-column">
                 <TokenHoldings tokens={tokens} />
               </div>
             </div>
