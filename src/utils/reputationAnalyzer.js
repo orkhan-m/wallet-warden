@@ -499,6 +499,45 @@ export class ReputationAnalyzer {
     return colors[grade] || "#6b7280";
   }
 
+  static getReputationBadge(score) {
+    if (score >= 80) {
+      return {
+        label: "Super Trusted",
+        color: "#10b981", // green
+        icon: "🛡️",
+        description: "Highly trustworthy wallet with excellent reputation"
+      };
+    } else if (score >= 60) {
+      return {
+        label: "Trusted",
+        color: "#3b82f6", // blue
+        icon: "✅",
+        description: "Trustworthy wallet with good reputation"
+      };
+    } else if (score >= 40) {
+      return {
+        label: "Medium",
+        color: "#f59e0b", // amber
+        icon: "⚠️",
+        description: "Average wallet with moderate reputation"
+      };
+    } else if (score >= 20) {
+      return {
+        label: "Low Trust",
+        color: "#ef4444", // red
+        icon: "🔸",
+        description: "Low reputation wallet - exercise caution"
+      };
+    } else {
+      return {
+        label: "High Risk",
+        color: "#dc2626", // dark red
+        icon: "🚨",
+        description: "High risk wallet - avoid interactions"
+      };
+    }
+  }
+
   static formatAddress(address) {
     if (!address) return "";
     return `${address.slice(0, 6)}...${address.slice(-4)}`;

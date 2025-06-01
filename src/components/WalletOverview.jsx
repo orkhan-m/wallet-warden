@@ -12,6 +12,7 @@ const WalletOverview = ({ walletData, reputation, address, transactions }) => {
   const safeReputation =
     reputation || ReputationAnalyzer.getDefaultReputation();
   const gradeColor = ReputationAnalyzer.getGradeColor(safeReputation.grade);
+  const reputationBadge = ReputationAnalyzer.getReputationBadge(safeReputation.score);
 
   // Get transaction count from the fetched data
   const transactionCount = transactions?.items?.length || 0;
@@ -44,6 +45,14 @@ const WalletOverview = ({ walletData, reputation, address, transactions }) => {
             <span className="score-grade">{safeReputation.grade}</span>
           </div>
           <div>
+            <div 
+              className="reputation-badge" 
+              style={{ backgroundColor: reputationBadge.color }}
+              title={reputationBadge.description}
+            >
+              <span className="reputation-badge-icon">{reputationBadge.icon}</span>
+              {reputationBadge.label}
+            </div>
             <div className="score-value">{safeReputation.score}/100</div>
             <div className="score-label">Reputation Score</div>
           </div>
